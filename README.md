@@ -1,17 +1,26 @@
 # Hello world plus 3D
 
-> **Warning — overclocked CPU**
+> **Warning — overclocked CPU and I2C**
 >
-> This sketch runs the RP2350 at **200 MHz** (`set_sys_clock_khz(200000, true)` in `setup1()` on core 1). That is above the default clock and may cause instability, higher power use, or reduced long-term reliability on some boards. Use at your own risk.
+> This sketch pushes the hardware beyond typical defaults:
 >
-> **To run at the default clock**, remove the overclock call:
+> - **CPU:** **200 MHz** via `set_sys_clock_khz(200000, true)` in `setup1()` on core 1 (above the default system clock).
+> - **I2C:** **2 MHz** via `#define I2C_CLOCK_HZ 2000000` and `i2c_init(OLED_I2C, I2C_CLOCK_HZ)`. Many SSD1306 modules and wiring setups are rated for **400 kHz** (I2C Fast mode) or lower. Running I2C faster can cause garbled displays, missed updates, or bus errors, especially with long wires or weak pull-ups.
+>
+> Use at your own risk. If anything looks unstable, revert one or both settings below.
+>
+> **To run at default/safer settings:**
 >
 > 1. Open `Hello-world-plus-3D.ino`.
-> 2. Find `setup1()` (near the top of the file, after the display driver class).
-> 3. Delete or comment out this line:
+> 2. **CPU —** find `setup1()` (near the top of the file, after the display driver class). Delete or comment out:
 >    ```cpp
 >    set_sys_clock_khz(200000, true);
 >    ```
+> 3. **I2C —** near the top `#define` block, change the bus speed to a standard rate, for example:
+>    ```cpp
+>    #define I2C_CLOCK_HZ 400000
+>    ```
+>    (`400000` = 400 kHz Fast mode; `100000` = 100 kHz Standard mode if your module still misbehaves.)
 > 4. Optional cleanup: if you also remove the commented `vreg_set_voltage(...)` line, you can delete these includes if nothing else needs them:
 >    ```cpp
 >    #include "hardware/vreg.h"
@@ -19,11 +28,11 @@
 >    ```
 > 5. Leave `setup1()` / `loop1()` in place — core 1 still updates `lissa_phase` for the Lissajous animation.
 >
-> Re-upload the sketch after editing. Animations may run slower at the default clock; that is expected.
+> Re-upload the sketch after editing. Animations may run slower at the default CPU clock; that is expected. Lower I2C speed may also reduce frame rate but should improve reliability.
 
 Arduino demo for **RP2350** driving a **128×64 SSD1306 OLED** over **I2C0** on **GPIO 0 (SDA)** and **GPIO 1 (SCL)**.
 
-The sketch shows a custom font “Hello, World”, grid overlays, a Lissajous curve, a 3D smiley face with wobble and roll, and several wireframe 3D shapes. Display updates use pico-sdk I2C with DMA at 2 MHz.
+The sketch shows a custom font “Hello, World”, grid overlays, a Lissajous curve, a 3D smiley face with wobble and roll, and several wireframe 3D shapes. Display updates use pico-sdk I2C with DMA (see the overclock warning above for bus speed).
 
 ## Hardware
 

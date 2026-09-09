@@ -1,0 +1,36 @@
+# Compile Hello-world-plus-3D for RP2350 (Arduino-Pico generic_rp2350).
+# Does not upload or run on hardware -- OLED on the bench still proves that.
+
+name: Compile
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install RP2040/RP2350 core and libraries
+        run: |
+          arduino-cli config init --overwrite
+          arduino-cli config add board_manager.additional_urls https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+          arduino-cli core update-index
+          arduino-cli core install rp2040:rp2040
+          arduino-cli lib install "Adafruit GFX Library"
+          arduino-cli lib install "Adafruit SSD1306"
+
+      - name: Compile sketch
+        run: |
+          arduino-cli compile \
+            --fqbn "rp2040:rp2040:generic_rp2350" \
+            .

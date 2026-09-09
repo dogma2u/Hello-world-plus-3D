@@ -1,5 +1,7 @@
 # Hello world plus 3D
 
+[![Compile](https://github.com/dogma2u/Hello-world-plus-3D/actions/workflows/compile.yml/badge.svg)](https://github.com/dogma2u/Hello-world-plus-3D/actions/workflows/compile.yml)
+
 > **Warning — overclocked CPU and I2C**
 >
 > This sketch pushes the hardware beyond typical defaults:

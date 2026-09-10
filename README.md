@@ -2,6 +2,8 @@
 
 [![Compile](https://github.com/dogma2u/Hello-world-plus-3D/actions/workflows/compile.yml/badge.svg)](https://github.com/dogma2u/Hello-world-plus-3D/actions/workflows/compile.yml)
 
+**Project page:** https://k9dtv.com/project-hello-world-3d.html
+
 > **Warning — overclocked CPU and I2C**
 >
 > This sketch pushes the hardware beyond typical defaults:
@@ -15,19 +17,19 @@
 >
 > 1. Open `Hello-world-plus-3D.ino`.
 > 2. **CPU —** find `setup1()` (near the top of the file, after the display driver class). Delete or comment out:
->    ```cpp
->    set_sys_clock_khz(200000, true);
->    ```
+> ```cpp
+> set_sys_clock_khz(200000, true);
+> ```
 > 3. **I2C —** near the top `#define` block, change the bus speed to a standard rate, for example:
->    ```cpp
->    #define I2C_CLOCK_HZ 400000
->    ```
->    (`400000` = 400 kHz Fast mode; `100000` = 100 kHz Standard mode if your module still misbehaves.)
+> ```cpp
+> #define I2C_CLOCK_HZ 400000
+> ```
+> (`400000` = 400 kHz Fast mode; `100000` = 100 kHz Standard mode if your module still misbehaves.)
 > 4. Optional cleanup: if you also remove the commented `vreg_set_voltage(...)` line, you can delete these includes if nothing else needs them:
->    ```cpp
->    #include "hardware/vreg.h"
->    #include "hardware/clocks.h"
->    ```
+> ```cpp
+> #include "hardware/vreg.h"
+> #include "hardware/clocks.h"
+> ```
 > 5. Leave `setup1()` / `loop1()` in place — core 1 still updates `lissa_phase` for the Lissajous animation.
 >
 > Re-upload the sketch after editing. Animations may run slower at the default CPU clock; that is expected. Lower I2C speed may also reduce frame rate but should improve reliability.

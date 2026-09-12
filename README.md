@@ -4,8 +4,6 @@
 
 **Project page:** https://k9dtv.com/project-hello-world-3d.html
 
-**Keywords:** K9DTV, k9dtv.com, embedded systems, electronics, FPGA, Space Wars, Sipeed Tang Primer 20K, Gowin, Verilog, browser game, MiniMe, ESP32-S3, Discord bot, OLED, Hello World 3D, RP2350, SSD1306, Lissajous, Raspberry Pi Pico, MicroPython, Pimoroni, Wi-Fi demo, PDSP1880, 3-bank display, Arduino Pro Mini, AD9850, DDS, signal generator, rotary encoder
-
 > **Warning — overclocked CPU and I2C**
 >
 > This sketch pushes the hardware beyond typical defaults:
